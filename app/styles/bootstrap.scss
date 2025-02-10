@@ -1,0 +1,28 @@
+// Override Bootstrap variables
+$enable-grid-classes: false;
+$enable-cssgrid: true;
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px,
+        xxxl: 1680px // custom added
+);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+        xxxl: 1420px
+) !default;
+
+$primary: green;
+
+
+// Import Bootstrap SCSS
+@import "bootstrap/scss/bootstrap";
