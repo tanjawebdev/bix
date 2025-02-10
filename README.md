@@ -13,7 +13,7 @@ This is a small site template. Includes:
 
 ## Demo
 
-https://next-starter-5ssoqwzm2-tanjawebdevs-projects.vercel.app
+https://next-starter-kit-virid-sigma.vercel.app
 
 ## How to Use
 
@@ -27,4 +27,4 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 ### Clone and Deploy
 
-Look for https://github.com/tanjawebdev/starter-micro-api and clone repo
+Look for https://github.com/tanjawebdev/next-starter-kit and clone repo
