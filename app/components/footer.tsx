@@ -17,42 +17,45 @@ function ArrowIcon() {
 
 export default function Footer() {
   return (
-    <footer>
-      <ul>
-        <li>
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="/rss"
-          >
-            <ArrowIcon />
-            <p>rss</p>
-          </a>
-        </li>
-        <li>
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/vercel/next.js"
-          >
-            <ArrowIcon />
-            <p>github</p>
-          </a>
-        </li>
-        <li>
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://vercel.com/templates/next.js/portfolio-starter-kit"
-          >
-            <ArrowIcon />
-            <p>view source</p>
-          </a>
-        </li>
-      </ul>
-      <p>
-        © {new Date().getFullYear()} MIT Licensed
-      </p>
+    <footer className="footer">
+      <div className="container">
+        <h1>Test</h1>
+        <ul className="footernav">
+          <li>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="/rss"
+            >
+              <ArrowIcon />
+              <p>rss</p>
+            </a>
+          </li>
+          <li>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://github.com/tanjawebdev/next-starter-kit"
+            >
+              <ArrowIcon />
+              <p>github</p>
+            </a>
+          </li>
+          <li>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://vercel.com/templates/next.js/portfolio-starter-kit"
+            >
+              <ArrowIcon />
+              <p>view source</p>
+            </a>
+          </li>
+        </ul>
+        <p>
+          © {new Date().getFullYear()} Tanja Kobler
+        </p>
+      </div>
     </footer>
   )
 }

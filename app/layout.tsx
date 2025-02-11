@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
+import Logo from './components/logo'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description: 'This is my portfolio.',
     url: baseUrl,
     siteName: 'My Portfolio',
-    locale: 'en_US',
+    locale: 'de_AT',
     type: 'website',
   },
   robots: {
@@ -46,20 +47,23 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="de"
       className={cx(
         GeistSans.variable,
         GeistMono.variable
       )}
     >
       <body className="antialiased">
-        <main>
+        <header>
+          <Logo />
           <Navbar />
+        </header>
+        <main>
           {children}
-          <Footer />
           <Analytics />
           <SpeedInsights />
         </main>
+        <Footer />
       </body>
     </html>
   )

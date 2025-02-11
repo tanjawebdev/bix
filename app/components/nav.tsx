@@ -11,25 +11,23 @@ const navItems = {
 
 export function Navbar() {
   return (
-    <aside>
-      <div>
-        <nav
-          id="nav"
-        >
-          <div>
-            {Object.entries(navItems).map(([path, { name }]) => {
-              return (
+    <nav
+      id="nav"
+    >
+      <ul>
+        {Object.entries(navItems).map(([path, { name }]) => {
+          return (
+              <li key={name}>
                 <Link
                   key={path}
                   href={path}
                 >
                   {name}
                 </Link>
-              )
-            })}
-          </div>
-        </nav>
-      </div>
-    </aside>
+              </li>
+          )
+        })}
+      </ul>
+    </nav>
   )
 }

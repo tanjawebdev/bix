@@ -1,11 +1,12 @@
 import Link from 'next/link'
+import styles from '../styles/Posts.module.scss'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 
 export function BlogPosts() {
   let allBlogs = getBlogPosts()
 
   return (
-    <div>
+    <div className={styles.blogpost}>
       {allBlogs
         .sort((a, b) => {
           if (
