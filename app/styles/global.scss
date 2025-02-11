@@ -39,6 +39,11 @@ header {
   color: $primary;
 }
 
+/* Main */
+main {
+  min-height: calc(100vh - 5rem);
+}
+
 /* Footer */
 footer {
   background-color: #F6F6F6;

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
+import {Metadata} from "next";
 
 export async function generateStaticParams() {
   let posts = getBlogPosts()
@@ -11,10 +12,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
+export function generateMetadata({ params }): Metadata | null {
   let post = getBlogPosts().find((post) => post.slug === params.slug)
   if (!post) {
-    return
+    return null
   }
 
   let {
@@ -59,7 +60,7 @@ export default function Blog({ params }) {
   }
 
   return (
-    <section>
+    <section className="container">
       <script
         type="application/ld+json"
         suppressHydrationWarning
