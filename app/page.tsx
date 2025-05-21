@@ -77,15 +77,30 @@ export default function Page() {
         }
     }
 
-    const exportImage = (print = false) => {
+    const exportImage = async (print = false) => {
         const canvas = canvasRef.current
         if (!canvas) return
-        const image = canvas.toDataURL('image/png')
 
-        const images = JSON.parse(localStorage.getItem("gallery") || "[]")
-        images.push({ image, created: new Date().toISOString() })
-        localStorage.setItem("gallery", JSON.stringify(images))
-        alert('Saved locally. View it in /gallery.')
+        const image = canvas.toDataURL('image/png')
+        const createdAt = new Date().toISOString()
+
+        try {
+            const res = await fetch('/api/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image, createdAt }),
+            })
+
+            const data = await res.json()
+            if (data.url) {
+                alert('Saved to Blob Storage! You can view it in /gallery soon.')
+            } else {
+                alert('Error saving image.')
+            }
+        } catch (err) {
+            console.error(err)
+            alert('Failed to upload image.')
+        }
     }
 
     return (
