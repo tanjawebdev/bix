@@ -15,7 +15,10 @@ export default function GalleryPage() {
         async function fetchDrawings() {
             const res = await fetch('/api/list')
             const data = await res.json()
-            setDrawings(data.files || [])
+            const sorted = (data.files || []).sort(
+                (a: Drawing, b: Drawing) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+            )
+            setDrawings(sorted)
         }
         fetchDrawings()
     }, [])
@@ -26,7 +29,7 @@ export default function GalleryPage() {
             {drawings.length === 0 && <p>No drawings uploaded yet.</p>}
             <div className="gallery-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {drawings.map((drawing, i) => (
-                    <div key={i} className="border rounded p-3 shadow">
+                    <div key={i} className="g-col-6 gallery-item border rounded p-3 shadow">
                         <img src={drawing.url} alt={drawing.name} className="w-full h-auto mb-2" />
                         <p className="text-xs text-gray-500 mb-2">
                             {new Date(drawing.uploadedAt).toLocaleString()}

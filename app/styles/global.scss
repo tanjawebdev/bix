@@ -14,7 +14,7 @@ body {
   text-align: left;
 }
 
-.container {
+.home-container {
   width: 1000px;
   padding: 0 !important;
 }
@@ -41,10 +41,14 @@ canvas {
 
 
 .gallery-container {
-  display: flex;
+  //display: flex;
   flex-direction: column;
   max-height: 80vh;
   overflow: scroll;
+
+  img {
+    width: 100%;
+  }
 }
 
 

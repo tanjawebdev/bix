@@ -104,7 +104,7 @@ export default function Page() {
     }
 
     return (
-        <section className="container max-w-2xl mx-auto text-center px-4">
+        <section className="home-container container max-w-2xl mx-auto text-center px-4">
             <div className="header-text">
                 <h1 className="text-4xl font-bold mb-2">EVERYBODY IS AN ARTIST</h1>
                 <p className="mb-4 text-gray-600">
