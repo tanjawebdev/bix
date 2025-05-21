@@ -13,7 +13,7 @@ export default function Page() {
         const ctx = canvas.getContext('2d')
         if (!ctx) return
 
-        ctx.lineWidth = 2
+        ctx.lineWidth = 25
         ctx.lineCap = 'round'
         ctx.strokeStyle = '#000'
 
