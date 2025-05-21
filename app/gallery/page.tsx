@@ -24,7 +24,7 @@ export default function GalleryPage() {
         <section className="container max-w-4xl mx-auto p-6 text-center">
             <h1 className="text-3xl font-bold mb-4">🖼️ Drawing Gallery</h1>
             {drawings.length === 0 && <p>No drawings uploaded yet.</p>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="gallery-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {drawings.map((drawing, i) => (
                     <div key={i} className="border rounded p-3 shadow">
                         <img src={drawing.url} alt={drawing.name} className="w-full h-auto mb-2" />
