@@ -82,22 +82,10 @@ export default function Page() {
         if (!canvas) return
         const image = canvas.toDataURL('image/png')
 
-        // TODO: send to backend — for now, just log
-        console.log('Exported Image:', image)
-
-        fetch('http://YOUR_BACKEND_IP:PORT/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                image,
-                print,
-            }),
-        }).then(() => {
-            alert(print ? 'Sent to print!' : 'Saved successfully!')
-        }).catch((err) => {
-            console.error('Error sending image:', err)
-            alert('Failed to send.')
-        })
+        const images = JSON.parse(localStorage.getItem("gallery") || "[]")
+        images.push({ image, created: new Date().toISOString() })
+        localStorage.setItem("gallery", JSON.stringify(images))
+        alert('Saved locally. View it in /gallery.')
     }
 
     return (
