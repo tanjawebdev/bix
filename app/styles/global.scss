@@ -2,17 +2,37 @@
 
 body {
   background-color: #1a1a5a;
+  background-image: linear-gradient(to left bottom, #060865, #080e67, #0a1368, #0d186a, #101c6b, #0d226f, #0b2872, #0a2d75, #03357b, #003d80, #004585, #004d89);  padding-top: 3rem;
   color: white;
-  padding-top: 3rem;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  font-family: 'Helvetica Neue', 'Montserrat', sans-serif;
+}
+
+.header-text {
+  text-align: left;
+}
+
+.container {
+  width: 1000px;
+  padding: 0 !important;
 }
 
 button {
   background-color: transparent;
   border: 1px solid white;
+  border-radius: 2rem !important;
+  padding: 0.7rem 2.2rem;
+}
+
+.button-save {
   margin-right: 1rem;
+}
+
+.buttons-bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
 canvas {

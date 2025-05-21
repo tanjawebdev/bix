@@ -102,28 +102,31 @@ export default function Page() {
 
     return (
         <section className="container max-w-2xl mx-auto text-center px-4">
-            <h1 className="text-4xl font-bold mb-2">EVERYBODY IS AN ARTIST</h1>
-            <p className="mb-4 text-gray-600">
-                Draw your artwork and project it to the city!
-            </p>
-
+            <div className="header-text">
+                <h1 className="text-4xl font-bold mb-2">EVERYBODY IS AN ARTIST</h1>
+                <p className="mb-4 text-gray-600">
+                    This project challenges the exclusivity of traditional art institutions by allowing anyone<br/> — regardless of background, age, or training — to display their work on one of Graz’s most iconic art venues.<br/> It reclaims public space for artistic expression and celebrates everyday creativity.
+                </p>
+            </div>
             <canvas
                 ref={canvasRef}
-                width={800}
-                height={600}
+                width={1000}
+                height={500}
                 className="border-2 border-black mx-auto touch-none"
             />
 
-            <div className="mt-4 flex justify-center gap-4">
-                <button onClick={clearCanvas} className="bg-red-500 text-white px-4 py-2 rounded">
+            <div className="buttons-bottom mt-4 flex justify-center gap-4">
+                <button onClick={clearCanvas} className="bg-red-500 text-white">
                     Clear
                 </button>
-                <button onClick={() => exportImage(false)} className="bg-blue-500 text-white px-4 py-2 rounded">
-                    Save
-                </button>
-                <button onClick={() => exportImage(true)} className="bg-green-500 text-white px-4 py-2 rounded">
-                    Print
-                </button>
+                <div className="buttons-right">
+                    <button onClick={() => exportImage(false)} className="button-save bg-blue-500 text-white">
+                        Save
+                    </button>
+                    <button onClick={() => exportImage(true)} className="button-print bg-green-500 text-white">
+                        Print
+                    </button>
+                </div>
             </div>
         </section>
     )
