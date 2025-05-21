@@ -77,29 +77,70 @@ export default function Page() {
         }
     }
 
-    const exportImage = async (print = false) => {
+    const exportImage = async () => {
         const canvas = canvasRef.current
         if (!canvas) return
 
-        const image = canvas.toDataURL('image/png')
-        const createdAt = new Date().toISOString()
+        // 1. Create a new canvas to composite everything
+        const exportCanvas = document.createElement('canvas')
+        exportCanvas.width = canvas.width
+        exportCanvas.height = canvas.height
+        const ctx = exportCanvas.getContext('2d')
+        if (!ctx) return
 
-        try {
-            const res = await fetch('/api/save', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image, createdAt }),
+        // 2. Draw background image first
+        const background = new Image()
+        background.src = '/bix-frame.png'
+
+        background.onload = async () => {
+            ctx.drawImage(background, 0, 0, exportCanvas.width, exportCanvas.height)
+
+            // 3. Draw the user's actual drawing on top
+            ctx.drawImage(canvas, 0, 0)
+
+            // 4. Draw timestamp overlay
+            const now = new Date()
+            const timestamp = now.toLocaleString('de-AT', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
             })
 
-            const data = await res.json()
-            if (data.url) {
-                alert('Saved to Blob Storage! You can view it in /gallery soon.')
-            } else {
-                alert('Error saving image.')
+            ctx.save()
+            ctx.fillStyle = '#000'
+            ctx.font = '16px monospace'
+
+// Move to top-right corner and rotate
+            ctx.translate(exportCanvas.width - 10, 0)
+            ctx.rotate(-Math.PI / 2)
+
+            ctx.fillText(timestamp, -220, -22)
+            ctx.restore()
+
+            // 5. Export final image
+            const image = exportCanvas.toDataURL('image/png')
+            const createdAt = now.toISOString()
+
+            try {
+                const res = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image, createdAt }),
+                })
+
+                const data = await res.json()
+                if (data.url) {
+                    alert('Artwork saved with background and timestamp!')
+                } else {
+                    alert('Upload failed.')
+                }
+            } catch (err) {
+                console.error(err)
+                alert('Failed to upload image.')
             }
-        } catch (err) {
-            console.error(err)
-            alert('Failed to upload image.')
         }
     }
 
@@ -123,10 +164,10 @@ export default function Page() {
                     Clear
                 </button>
                 <div className="buttons-right">
-                    <button onClick={() => exportImage(false)} className="button-save bg-blue-500 text-white">
+                    <button onClick={() => exportImage()} className="button-save bg-blue-500 text-white">
                         Save
                     </button>
-                    <button onClick={() => exportImage(true)} className="button-print bg-green-500 text-white">
+                    <button onClick={() => exportImage()} className="button-print bg-green-500 text-white">
                         Print
                     </button>
                 </div>
