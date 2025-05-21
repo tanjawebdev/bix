@@ -81,24 +81,22 @@ export default function Page() {
         const canvas = canvasRef.current
         if (!canvas) return
 
-        // 1. Create a new canvas to composite everything
+        // Step 1: Create export canvas with original size
         const exportCanvas = document.createElement('canvas')
         exportCanvas.width = canvas.width
         exportCanvas.height = canvas.height
         const ctx = exportCanvas.getContext('2d')
         if (!ctx) return
 
-        // 2. Draw background image first
         const background = new Image()
         background.src = '/bix-frame.png'
 
         background.onload = async () => {
+            // Step 2: Draw background and content
             ctx.drawImage(background, 0, 0, exportCanvas.width, exportCanvas.height)
-
-            // 3. Draw the user's actual drawing on top
             ctx.drawImage(canvas, 0, 0)
 
-            // 4. Draw timestamp overlay
+            // Step 3: Add timestamp rotated -90° in top-right
             const now = new Date()
             const timestamp = now.toLocaleString('de-AT', {
                 day: '2-digit',
@@ -112,16 +110,25 @@ export default function Page() {
             ctx.save()
             ctx.fillStyle = '#000'
             ctx.font = '16px monospace'
-
-// Move to top-right corner and rotate
             ctx.translate(exportCanvas.width - 10, 0)
             ctx.rotate(-Math.PI / 2)
-
             ctx.fillText(timestamp, -220, -22)
             ctx.restore()
 
-            // 5. Export final image
-            const image = exportCanvas.toDataURL('image/png')
+            // ✅ Step 4: Rotate everything onto a new canvas
+            const rotatedCanvas = document.createElement('canvas')
+            rotatedCanvas.width = exportCanvas.height
+            rotatedCanvas.height = exportCanvas.width
+
+            const rctx = rotatedCanvas.getContext('2d')
+            if (!rctx) return
+
+            rctx.translate(rotatedCanvas.width, 0)
+            rctx.rotate(Math.PI / 2)
+            rctx.drawImage(exportCanvas, 0, 0)
+
+            // Step 5: Export and upload
+            const image = rotatedCanvas.toDataURL('image/png')
             const createdAt = now.toISOString()
 
             try {
@@ -133,7 +140,7 @@ export default function Page() {
 
                 const data = await res.json()
                 if (data.url) {
-                    alert('Artwork saved with background and timestamp!')
+                    alert('Artwork saved with full 90° rotation!')
                 } else {
                     alert('Upload failed.')
                 }
@@ -152,12 +159,15 @@ export default function Page() {
                     This project challenges the exclusivity of traditional art institutions by allowing anyone<br/> — regardless of background, age, or training — to display their work on one of Graz’s most iconic art venues.<br/> It reclaims public space for artistic expression and celebrates everyday creativity.
                 </p>
             </div>
+            <div className="canvas-wrapper">
+
             <canvas
                 ref={canvasRef}
                 width={1000}
                 height={500}
                 className="border-2 border-black mx-auto touch-none"
             />
+            </div>
 
             <div className="buttons-bottom mt-4 flex justify-center gap-4">
                 <button onClick={clearCanvas} className="bg-red-500 text-white">
