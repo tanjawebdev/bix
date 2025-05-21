@@ -54,16 +54,9 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased">
-        <header>
-          <Logo />
-          <Navbar />
-        </header>
         <main>
           {children}
-          <Analytics />
-          <SpeedInsights />
         </main>
-        <Footer />
       </body>
     </html>
   )

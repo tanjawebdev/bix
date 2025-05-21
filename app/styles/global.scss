@@ -1,5 +1,21 @@
 @import "bootstrap.scss";
 
+body {
+  background-color: #1a1a5a;
+  color: white;
+  padding-top: 3rem;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid white;
+  margin-right: 1rem;
+}
+
+canvas {
+  background: white;
+}
+
 /* Header */
 
 header {
