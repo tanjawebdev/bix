@@ -69,6 +69,24 @@ export default function Page() {
         }
     }, [isDrawing])
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const canvas = canvasRef.current
+            if (!canvas) return
+
+            console.log("test");
+            const image = canvas.toDataURL('image/png')
+
+            fetch('http://192.168.50.213:3001/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image }),
+            }).catch((err) => console.error('NDI update failed', err))
+        }, 100)
+
+        return () => clearInterval(interval)
+    }, [])
+
     const clearCanvas = () => {
         const canvas = canvasRef.current
         const ctx = canvas?.getContext('2d')
