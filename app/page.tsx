@@ -77,13 +77,14 @@ export default function Page() {
             console.log("test");
             const image = canvas.toDataURL('image/png')
 
-            fetch("http://172.20.10.8:3001/update", {
-                method: "POST",
+            fetch('http://172.20.10.8:3001/update', {
+                //172.20.10.8
+                //192.168.50.213:3001
+                method: 'POST',
                 mode: "no-cors",
-                body: JSON.stringify({
-                    image: canvas.toDataURL("image/png"),
-                }),
-            }).catch(e => console.error("NDI update failed", e))
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image }),
+            }).catch((err) => console.error('NDI update failed', err))
         }, 100)
 
         return () => clearInterval(interval)
