@@ -81,6 +81,7 @@ export default function Page() {
                 //172.20.10.8
                 //192.168.50.213:3001
                 method: 'POST',
+                mode: "no-cors",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image }),
             }).catch((err) => console.error('NDI update failed', err))
